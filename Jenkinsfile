@@ -8,11 +8,12 @@ pipeline {
     }
     stage('Deploy Standalone') { 
       steps {
-        
+         sh 'mvn clean test'
       }
     }
     stage('Deploy Cloudhub DEV') { 
       steps {
+       sh 'mvn clean test'
      }
     }
   }
