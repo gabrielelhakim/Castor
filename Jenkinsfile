@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Unit Test') { 
       steps {
-         mvn clean test
+       sh 'mvn clean test'
       }
     }
     stage('Deploy Standalone') { 
