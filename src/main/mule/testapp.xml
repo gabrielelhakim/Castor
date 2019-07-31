@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="eb1e9ef8-87c0-4700-90cb-dd9df1913a79" >
+		<salesforce:basic-connection username="gabriel.elhakim@ei.com.dev1" password="Mikgabyah_123" url="https://test.salesforce.com/services/Soap/u/43.0" securityToken="CtLWywDeGa808DVWeowaCcr1"/>
+	</salesforce:sfdc-config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="b520456d-ce5c-4bff-8c76-0e08d4210bbf" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="5a3684b1-559e-4af2-a693-7ca33658bf8e" >
+		<file:connection workingDir="C:\Users\gabriel.elhakim\Desktop" />
+	</file:config>
+	<flow name="testappFlow" doc:id="a6ca9cef-e7e1-48e2-9042-d9d43bb9f829" >
+		<http:listener doc:name="Listener" doc:id="a1e185cb-cf8a-4f5f-8881-0283da68bfc9" config-ref="HTTP_Listener_config" path="/testaccounts"/>
+		<logger level="INFO" doc:name="Start" doc:id="645548c2-fcfa-4f01-a8f4-143e3aec9213" message="'###' ++ #[now()]"/>
+		<salesforce:query doc:name="Query" doc:id="31c372be-19e5-4d96-8b6d-5e54a5e9ecba" config-ref="Salesforce_Config">
+			<non-repeatable-iterable />
+			<salesforce:salesforce-query >select id,name from account</salesforce:salesforce-query>
+		</salesforce:query>
+		<logger level="INFO" doc:name="End" doc:id="8b70be9a-0a84-4cb8-a08a-33af4dc86d1c" message="'###' ++ #[now()]"/>
+		<ee:transform doc:name="Transform Message" doc:id="85c461ca-1d01-492d-9b08-1a6411424431" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<file:write doc:name="Write" doc:id="285531ea-af9b-42e8-b53b-1277d53a179d" config-ref="File_Config" path="SALESFORCE_CASTOR.csv">
+			<file:content ><![CDATA[#[output application/csv separator=";", header=true,encoding="UTF-8"
+---
+payload]]]></file:content>
+		</file:write>
+	</flow>
+</mule>
