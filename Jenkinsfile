@@ -1,6 +1,12 @@
 pipeline {
   agent any
-  stages {
+  stages{
+    stage{
+      script{
+        echo "Hello ia m tony tannous"
+    } 
+  }
+  /* stages {
     stage('Unit Test q') { 
       node {
   bat "mvn clean install"
@@ -16,5 +22,5 @@ pipeline {
   bat "mvn clean install"
 }
     }
-  }
+  } */
 }
