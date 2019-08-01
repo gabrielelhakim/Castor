@@ -3,17 +3,17 @@ pipeline {
   stages {
     stage('Unit Test q') { 
       steps {
-       mvn clean test
+        script { mvn clean test}
       }
     }
     stage('Deploy Standalone') { 
       steps {
-         mvn clean test
+        script { mvn clean test}
       }
     }
     stage('Deploy Cloudhub DEV') { 
       steps {
-        mvn clean test
+        script { mvn clean test}
      }
     }
   }
