@@ -1,28 +1,29 @@
 pipeline {
   agent any
   stages{
-    stage('stage1'){
+    stage('Unit Test')
+   {
       steps{
         echo "Hello ia m tony tannous"
         bat "mvn clean install"
-    } 
+        } 
     }
   }
-  /* stages {
-    stage('Unit Test q') { 
-      node {
-  bat "mvn clean install"
-}
+ stage('Deploy Standalone')
+   {
+      steps{
+        echo "Hello ia m Standalone')"
+        bat "mvn clean install"
+        } 
     }
-    stage('Deploy Standalone') { 
-      node {
-  bat "mvn clean install"
-}
+ stage('Deploy Cloudhub DEV')
+   {
+      steps{
+        echo "Hello i Deploy Cloudhub DEV"
+        bat "mvn clean install"
+        } 
     }
-    stage('Deploy Cloudhub DEV') { 
-      node {
-  bat "mvn clean install"
+ 
 }
-    }
-  } */
+  
 }
