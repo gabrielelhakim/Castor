@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages{
-    stage{
+    stage('stage1'){
       script{
         echo "Hello ia m tony tannous"
     } 
