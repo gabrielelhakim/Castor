@@ -2,19 +2,19 @@ pipeline {
   agent any
   stages {
     stage('Unit Test q') { 
-      steps {
-        script { mvn clean test}
-      }
+      node {
+  bat "mvn clean install"
+}
     }
     stage('Deploy Standalone') { 
-      steps {
-        script { mvn clean test}
-      }
+      node {
+  bat "mvn clean install"
+}
     }
     stage('Deploy Cloudhub DEV') { 
-      steps {
-        script { mvn clean test}
-     }
+      node {
+  bat "mvn clean install"
+}
     }
   }
 }
