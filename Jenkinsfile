@@ -5,6 +5,7 @@ pipeline {
       script{
         echo "Hello ia m tony tannous"
     } 
+    }
   }
   /* stages {
     stage('Unit Test q') { 
