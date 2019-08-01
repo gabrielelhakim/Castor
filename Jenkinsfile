@@ -7,8 +7,7 @@ pipeline {
         echo "Hello ia m tony tannous"
         bat "mvn clean install"
         } 
-    }
-  }
+   }
  stage('Deploy Standalone')
    {
       steps{
