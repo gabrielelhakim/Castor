@@ -4,6 +4,7 @@ pipeline {
     stage('stage1'){
       steps{
         echo "Hello ia m tony tannous"
+        bat "mvn clean install"
     } 
     }
   }
