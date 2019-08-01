@@ -1,20 +1,28 @@
 pipeline {
   agent any
-  stages {
-    stage('Unit Test q') { 
-      steps {
-       mvn clean test
-      }
+  stages{
+    stage('Unit Test')
+   {
+      steps{
+        echo "Hello ia m tony tannous"
+        bat "mvn clean install"
+        } 
+   }
+ stage('Deploy Standalone')
+   {
+      steps{
+        echo "Hello ia m Standalone')"
+        bat "mvn clean install"
+        } 
     }
-    stage('Deploy Standalone') { 
-      steps {
-         mvn clean test
-      }
+ stage('Deploy Cloudhub DEV')
+   {
+      steps{
+        echo "Hello i Deploy Cloudhub DEV"
+        bat "mvn deploy -DmuleDeploy -Dcloud.env=DEV -DcloudhubAppName=api-template-dev -Dmule.version=4.2.0 -Dcloud.user=gabriel_elhakim -Dcloud.password=Mikgabyah_123"
+        } 
     }
-    stage('Deploy Cloudhub DEV') { 
-      steps {
-        mvn clean test
-     }
-    }
-  }
+ 
+}
+  
 }
